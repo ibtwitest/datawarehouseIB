@@ -1,0 +1,13 @@
+{
+	"name": "AzureDataLakeStore1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://ibdatalakestorage.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "ac1df4ad-5702-41e4-8882-db5c910ca664",
+			"subscriptionId": "8bf5716e-cbb9-4bef-86f6-42ed7d1a872a",
+			"resourceGroupName": "TriDatawarehouseIB"
+		}
+	}
+}

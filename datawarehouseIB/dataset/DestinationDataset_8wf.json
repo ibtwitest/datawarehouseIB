@@ -10,10 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureDataLakeStoreLocation",
-				"fileName": {
-					"value": "@CONCAT(pipeline().RunId, '.txt')",
-					"type": "Expression"
-				},
 				"folderPath": "adftutorial/tolake"
 			}
 		}

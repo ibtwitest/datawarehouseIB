@@ -14,6 +14,11 @@
 				"precision": 19
 			},
 			{
+				"name": "WMO315_AangevraagdProduct_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
 				"name": "Header_Functie",
 				"type": "nvarchar"
 			},
@@ -62,7 +67,7 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Identificatie",
+				"name": "BerichtIdentificatie",
 				"type": "varchar"
 			},
 			{
@@ -74,101 +79,66 @@
 				"type": "varchar"
 			},
 			{
-				"name": "Beschikking_BeschikkingNummer",
-				"type": "varchar"
-			},
-			{
-				"name": "Beschikking_Grondslag01",
-				"type": "char"
-			},
-			{
-				"name": "Beschikking_Grondslag02",
-				"type": "char"
-			},
-			{
-				"name": "Beschikking_Afgiftedatum",
-				"type": "date"
-			},
-			{
-				"name": "Beschikking_Ingangsdatum",
-				"type": "date"
-			},
-			{
-				"name": "Beschikking_Einddatum",
-				"type": "date"
-			},
-			{
 				"name": "Client_Bsn_Hashed",
 				"type": "varbinary"
 			},
 			{
-				"name": "Client_Geboortedatum",
+				"name": "ReferentieAanbieder",
+				"type": "varchar"
+			},
+			{
+				"name": "BeschikkingNummer",
+				"type": "varchar"
+			},
+			{
+				"name": "ProductCategorie",
+				"type": "char"
+			},
+			{
+				"name": "ProductCode",
+				"type": "char"
+			},
+			{
+				"name": "BeschikkingIngangsdatum",
 				"type": "date"
 			},
 			{
-				"name": "Client_DatumGebruik",
+				"name": "ToewijzingIngangsdatum",
+				"type": "date"
+			},
+			{
+				"name": "ToewijzingEinddatum",
+				"type": "date"
+			},
+			{
+				"name": "OmvangVolume",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OmvangEenheid",
 				"type": "char"
 			},
 			{
-				"name": "Client_Geslacht",
+				"name": "OmvangFrequentie",
 				"type": "char"
 			},
 			{
-				"name": "Client_Geslachtsnaam",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_GeslachtsnaamVoorvoegsel",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_Partnernaam",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_PartnernaamVoorvoegsel",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_Voornamen",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_Voorletters",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_NaamGebruik",
+				"name": "TypeVerwijzer",
 				"type": "char"
 			},
 			{
-				"name": "Client_CommunicatieVorm",
+				"name": "NaamVerwijzer",
 				"type": "char"
 			},
 			{
-				"name": "Client_CommunicatieTaal",
-				"type": "varchar"
-			},
-			{
-				"name": "Client_JuridischeStatus",
-				"type": "char"
-			},
-			{
-				"name": "Client_WettelijkeVertegenwoordiging",
-				"type": "char"
-			},
-			{
-				"name": "Client_CommentaarInd",
-				"type": "char"
-			},
-			{
-				"name": "Beschikking_CommentaarInd",
+				"name": "Raamcontract",
 				"type": "char"
 			}
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "JW301"
+			"table": "vw_WMO315"
 		}
 	}
 }

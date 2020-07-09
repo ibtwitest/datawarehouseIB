@@ -1,0 +1,16 @@
+{
+	"name": "DWH01_Test",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DWH01-TST-GGK.INLICHTINGENBUREAU.NL;initial catalog=DWH_Staging;user id=AzureSelect",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlMTk4ODAwYi1kZWQ2LTRhYmItYTZjMS05YWYwYTE0NDIxYzAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime6",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "GGKCopyData",
+				"description": "Data van on premise database",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -15,8 +16,43 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "GGKDelimitedText",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []

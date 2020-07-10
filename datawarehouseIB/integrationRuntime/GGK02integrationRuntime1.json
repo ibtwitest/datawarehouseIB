@@ -1,0 +1,7 @@
+{
+	"name": "GGK02integrationRuntime1",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Verbinding met GGK SQL Server"
+	}
+}

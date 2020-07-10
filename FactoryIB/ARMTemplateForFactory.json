@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"SqlServer1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServer1'"
+		},
 		"SqlServerLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
@@ -40,82 +44,6 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline_8wf')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy_8wf",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "adftutorial/fromonprem/"
-							},
-							{
-								"name": "Destination",
-								"value": "tolake/"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*"
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureDataLakeStoreWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
-								}
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"skipErrorFile": {
-								"fileMissing": true
-							},
-							"validateDataConsistency": false
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_8wf",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_8wf",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_8wf')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_8wf')]"
-			]
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SQLServerToBlobPipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -215,51 +143,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_8wf')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStore1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureDataLakeStoreLocation",
-						"folderPath": "adftutorial/tolake"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStore1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_8wf')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": "fromonprem",
-						"container": "adftutorial"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage2')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -292,6 +175,125 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SqlServerLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WMO315_TEST')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Header_Functie",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Header_Referentienummer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Header_Crossreferentienummer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Datum_VerzondenUTC",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "Datum_OntvangenUTC",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "IsWebservice",
+						"type": "bit"
+					},
+					{
+						"name": "BerichtCode",
+						"type": "varchar"
+					},
+					{
+						"name": "BerichtVersie",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "BerichtSubversie",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "Afzender",
+						"type": "varchar"
+					},
+					{
+						"name": "Ontvanger",
+						"type": "varchar"
+					},
+					{
+						"name": "BerichtIdentificatie",
+						"type": "varchar"
+					},
+					{
+						"name": "Dagtekening",
+						"type": "date"
+					},
+					{
+						"name": "Client_Bsn",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Bsn_Hashed",
+						"type": "varbinary"
+					},
+					{
+						"name": "Client_Geboortedatum",
+						"type": "date"
+					},
+					{
+						"name": "Client_DatumGebruik",
+						"type": "char"
+					},
+					{
+						"name": "Client_Geslacht",
+						"type": "char"
+					},
+					{
+						"name": "Client_Geslachtsnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_GeslachtsnaamVoorvoegsel",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Voornamen",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Voorletters",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "WMO315"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
 			]
 		},
 		{
@@ -337,6 +339,25 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('SqlServer1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime6",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime6')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerLinkedService')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -362,6 +383,35 @@
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime6')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime7')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "West Europe",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
 			},
 			"dependsOn": []
 		}

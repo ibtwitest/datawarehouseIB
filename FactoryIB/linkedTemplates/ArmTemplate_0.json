@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
 		},
+		"AzureBlobStorage3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage3'"
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
+		},
+		"OnPremSqlServerGGK_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'OnPremSqlServerGGK'"
 		},
 		"SqlServer1_connectionString": {
 			"type": "secureString",
@@ -58,6 +66,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage3_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStore1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -83,6 +104,27 @@
 				"typeProperties": {
 					"connectionString": "[parameters('AzureStorageLinkedService_connectionString')]"
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/GGK01integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/GGK02integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"description": "Verbinding met GGK SQL Server",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
@@ -157,6 +199,96 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_wph')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "adftutorial"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/GGKDelimitedText')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "ggkwbe"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_wph')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "adftutorial"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OnPremSqlServerGGK')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "on premise verbinding van SQL Server GGK",
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('OnPremSqlServerGGK_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "GGK02integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/GGK02integrationRuntime1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -195,6 +327,83 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CopyfromFileStoragetoDataLake')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "CopyfromFileStoragetoDataLake",
+				"activities": [
+					{
+						"name": "Copy_wph",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "adftutorial//"
+							},
+							{
+								"name": "Destination",
+								"value": "adftutorial//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*"
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"skipErrorFile": {
+								"fileMissing": true
+							},
+							"validateDataConsistency": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_wph",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_wph",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_wph')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_wph')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -230,122 +439,77 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/WMO315_TEST')]",
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "SqlServer1",
+					"referenceName": "OnPremSqlServerGGK",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "SqlServerTable",
 				"schema": [
 					{
-						"name": "Bericht_ID",
-						"type": "bigint",
-						"precision": 19
+						"name": "ID",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "Header_Functie",
+						"name": "ServerName",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Header_Referentienummer",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Header_Crossreferentienummer",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Datum_VerzondenUTC",
-						"type": "datetime2",
+						"name": "CheckDate",
+						"type": "datetimeoffset",
 						"scale": 7
 					},
 					{
-						"name": "Datum_OntvangenUTC",
-						"type": "datetime2",
-						"scale": 7
+						"name": "Priority",
+						"type": "tinyint",
+						"precision": 3
 					},
 					{
-						"name": "IsWebservice",
-						"type": "bit"
-					},
-					{
-						"name": "BerichtCode",
+						"name": "FindingsGroup",
 						"type": "varchar"
 					},
 					{
-						"name": "BerichtVersie",
-						"type": "smallint",
-						"precision": 5
-					},
-					{
-						"name": "BerichtSubversie",
-						"type": "smallint",
-						"precision": 5
-					},
-					{
-						"name": "Afzender",
+						"name": "Finding",
 						"type": "varchar"
 					},
 					{
-						"name": "Ontvanger",
+						"name": "DatabaseName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "URL",
 						"type": "varchar"
 					},
 					{
-						"name": "BerichtIdentificatie",
-						"type": "varchar"
+						"name": "Details",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Dagtekening",
-						"type": "date"
+						"name": "QueryPlan",
+						"type": "xml"
 					},
 					{
-						"name": "Client_Bsn",
-						"type": "varchar"
+						"name": "QueryPlanFiltered",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Client_Bsn_Hashed",
-						"type": "varbinary"
-					},
-					{
-						"name": "Client_Geboortedatum",
-						"type": "date"
-					},
-					{
-						"name": "Client_DatumGebruik",
-						"type": "char"
-					},
-					{
-						"name": "Client_Geslacht",
-						"type": "char"
-					},
-					{
-						"name": "Client_Geslachtsnaam",
-						"type": "varchar"
-					},
-					{
-						"name": "Client_GeslachtsnaamVoorvoegsel",
-						"type": "varchar"
-					},
-					{
-						"name": "Client_Voornamen",
-						"type": "varchar"
-					},
-					{
-						"name": "Client_Voorletters",
-						"type": "varchar"
+						"name": "CheckID",
+						"type": "int",
+						"precision": 10
 					}
 				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "WMO315"
+					"schema": "Blitz",
+					"table": "BlitzVerzamel"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SqlServer1')]"
+				"[concat(variables('factoryId'), '/linkedServices/OnPremSqlServerGGK')]"
 			]
 		},
 		{

@@ -1,0 +1,69 @@
+{
+	"name": "SqlServerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OnPremSqlServerGGK",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ServerName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CheckDate",
+				"type": "datetimeoffset",
+				"scale": 7
+			},
+			{
+				"name": "Priority",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "FindingsGroup",
+				"type": "varchar"
+			},
+			{
+				"name": "Finding",
+				"type": "varchar"
+			},
+			{
+				"name": "DatabaseName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "URL",
+				"type": "varchar"
+			},
+			{
+				"name": "Details",
+				"type": "nvarchar"
+			},
+			{
+				"name": "QueryPlan",
+				"type": "xml"
+			},
+			{
+				"name": "QueryPlanFiltered",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CheckID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "Blitz",
+			"table": "BlitzVerzamel"
+		}
+	}
+}

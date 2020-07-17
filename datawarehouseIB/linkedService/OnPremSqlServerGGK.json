@@ -1,0 +1,17 @@
+{
+	"name": "OnPremSqlServerGGK",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "on premise verbinding van SQL Server GGK",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=WBE21-TST-ALM;initial catalog=DBA;user id=AzureSelect",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjZGVkY2U2Ni1jMDIxLTQzNGMtOTE0ZC1lMTBmMjMzNTRkMTYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "GGK02integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

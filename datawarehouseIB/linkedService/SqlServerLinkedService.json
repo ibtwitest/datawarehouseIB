@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=False;data source=datawarehouse01.database.windows.net;initial catalog=IBproefdatabase;user id=admin01",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZBQ1RPUllJQl8xNmZiMWNhMS1iZTgxLTRlMzctOTE0My1mZTlkNzMxODI3ODYiDQp9"
+			"connectionString": "integrated security=False;data source=datawarehouse01.database.windows.net;initial catalog=DWH_Staging;user id=admin01",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZBQ1RPUllJQl8yODMxODcwNC1lZDc5LTQ4OTEtODU2MC0zYTk4NjcxMzgyZDIiDQp9"
 		}
 	}
 }

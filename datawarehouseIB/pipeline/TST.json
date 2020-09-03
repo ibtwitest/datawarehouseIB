@@ -293,7 +293,14 @@
 			{
 				"name": "JW301_ToegewezenProduct",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "JW301_ClientRelatie",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,

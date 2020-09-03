@@ -168,7 +168,7 @@
 		],
 		"typeProperties": {
 			"schema": "temp",
-			"table": "JW301_Beperking"
+			"table": "JW301"
 		}
 	}
 }

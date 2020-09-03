@@ -1,0 +1,90 @@
+{
+	"name": "ds_JW301_ClientContact",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Bericht_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "AdresSoort",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisnummer",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisletter",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisnummerToevoeging",
+				"type": "varchar"
+			},
+			{
+				"name": "AdresAanduidingWoonadres",
+				"type": "char"
+			},
+			{
+				"name": "Postcode",
+				"type": "varchar"
+			},
+			{
+				"name": "Straatnaam",
+				"type": "varchar"
+			},
+			{
+				"name": "Plaatsnaam",
+				"type": "varchar"
+			},
+			{
+				"name": "LandCode",
+				"type": "char"
+			},
+			{
+				"name": "Organisatie",
+				"type": "varchar"
+			},
+			{
+				"name": "Telefoonnummer01",
+				"type": "varchar"
+			},
+			{
+				"name": "TelefoonLandnummer01",
+				"type": "varchar"
+			},
+			{
+				"name": "Telefoonnummer02",
+				"type": "varchar"
+			},
+			{
+				"name": "TelefoonLandnummer02",
+				"type": "varchar"
+			},
+			{
+				"name": "Emailadres",
+				"type": "varchar"
+			},
+			{
+				"name": "ContactBegindatum",
+				"type": "date"
+			},
+			{
+				"name": "ContactEinddatum",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "JW301_ClientContact"
+		}
+	}
+}

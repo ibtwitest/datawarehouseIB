@@ -1,0 +1,42 @@
+{
+	"name": "ds_JW301_BeperkingScore",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Bericht_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "BeschikkingNummer",
+				"type": "varchar"
+			},
+			{
+				"name": "Beperking_Categorie",
+				"type": "char"
+			},
+			{
+				"name": "Beperking_Vraag",
+				"type": "varchar"
+			},
+			{
+				"name": "Beperking_Score",
+				"type": "varchar"
+			},
+			{
+				"name": "BeperkingScore_CommentaarInd",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "JW301_BeperkingScore"
+		}
+	}
+}

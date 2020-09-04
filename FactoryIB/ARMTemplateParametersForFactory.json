@@ -23,6 +23,9 @@
 		"SqlServerLinkedService_connectionString": {
 			"value": ""
 		},
+		"ls_TST_BLB_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
 			"value": "https://ibdatalakestorage.azuredatalakestore.net/webhdfs/v1"
 		},

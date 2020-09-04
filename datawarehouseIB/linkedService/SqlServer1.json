@@ -5,11 +5,12 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=False;data source=DWH01-TST-GGK;initial catalog=DWH_Staging;user id=AzureSelect",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2NGY2ZWU1NS1iYmM1LTQyZjQtYjNmMi1iN2E1ZDk2MWU3ZTMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;data source=DWH21-PRD-GGK;initial catalog=DWH_Staging;user id=AzureSelect",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjOTBhNmNmNC01MzU2LTQ5ZTItYjM2MC01YmM5ZjFhNzdiNTAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "integrationRuntime6",
+			"referenceName": "ir-DWH21-PRD-GGK",
+
 			"type": "IntegrationRuntimeReference"
 		}
 	}

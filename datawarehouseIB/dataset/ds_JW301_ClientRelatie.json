@@ -1,0 +1,143 @@
+{
+	"name": "ds_JW301_ClientRelatie",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Bericht_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "RelatieNummer",
+				"type": "varchar"
+			},
+			{
+				"name": "RelatieVolgorde",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "RelatieSoort",
+				"type": "char"
+			},
+			{
+				"name": "Geboortdatum",
+				"type": "date"
+			},
+			{
+				"name": "GeboortDatumGebruik",
+				"type": "char"
+			},
+			{
+				"name": "Geslacht",
+				"type": "char"
+			},
+			{
+				"name": "Geslachtsnaam",
+				"type": "varchar"
+			},
+			{
+				"name": "GeslachtsnaamVoorvoegsel",
+				"type": "varchar"
+			},
+			{
+				"name": "Partnernaam",
+				"type": "varchar"
+			},
+			{
+				"name": "PartnernaamVoorvoegsel",
+				"type": "varchar"
+			},
+			{
+				"name": "Voornamen",
+				"type": "varchar"
+			},
+			{
+				"name": "Voorletters",
+				"type": "varchar"
+			},
+			{
+				"name": "NaamGebruik",
+				"type": "char"
+			},
+			{
+				"name": "AdresSoort",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisnummer",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisletter",
+				"type": "char"
+			},
+			{
+				"name": "AdresHuisnummerToevoeging",
+				"type": "varchar"
+			},
+			{
+				"name": "AdresAanduidingWoonadres",
+				"type": "char"
+			},
+			{
+				"name": "Postcode",
+				"type": "varchar"
+			},
+			{
+				"name": "Straatnaam",
+				"type": "varchar"
+			},
+			{
+				"name": "Plaatsnaam",
+				"type": "varchar"
+			},
+			{
+				"name": "LandCode",
+				"type": "char"
+			},
+			{
+				"name": "Organisatie",
+				"type": "varchar"
+			},
+			{
+				"name": "Telefoonnummer01",
+				"type": "varchar"
+			},
+			{
+				"name": "TelefoonLandnummer01",
+				"type": "varchar"
+			},
+			{
+				"name": "Telefoonnummer02",
+				"type": "varchar"
+			},
+			{
+				"name": "TelefoonLandnummer02",
+				"type": "varchar"
+			},
+			{
+				"name": "Emailadres",
+				"type": "varchar"
+			},
+			{
+				"name": "RelatieBegindatum",
+				"type": "date"
+			},
+			{
+				"name": "RelatieEinddatum",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "JW301_ClientRelatie"
+		}
+	}
+}

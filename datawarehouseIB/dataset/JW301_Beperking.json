@@ -1,0 +1,38 @@
+{
+	"name": "JW301_Beperking",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Bericht_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "BeschikkingNummer",
+				"type": "varchar"
+			},
+			{
+				"name": "Beperking_Categorie",
+				"type": "char"
+			},
+			{
+				"name": "Beperking_Duur",
+				"type": "char"
+			},
+			{
+				"name": "Beperking_CommentaarInd",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "JW301_Beperking"
+		}
+	}
+}

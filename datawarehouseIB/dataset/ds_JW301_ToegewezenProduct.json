@@ -1,0 +1,77 @@
+{
+	"name": "ds_JW301_ToegewezenProduct",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Bericht_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ToegewezenProduct_ToewijzingNummer",
+				"type": "varchar"
+			},
+			{
+				"name": "ToegewezenProduct_ReferentieAanbieder",
+				"type": "varchar"
+			},
+			{
+				"name": "ToegewezenProduct_ProductCategorie",
+				"type": "char"
+			},
+			{
+				"name": "ToegewezenProduct_ProductCode",
+				"type": "char"
+			},
+			{
+				"name": "ToegewezenProduct_Toewijzingsdatum",
+				"type": "date"
+			},
+			{
+				"name": "ToegewezenProduct_Toewijzingstijd",
+				"type": "time",
+				"scale": 7
+			},
+			{
+				"name": "ToegewezenProduct_Ingangsdatum",
+				"type": "date"
+			},
+			{
+				"name": "ToegewezenProduct_Einddatum",
+				"type": "date"
+			},
+			{
+				"name": "ToegewezenProduct_RedenWijziging",
+				"type": "char"
+			},
+			{
+				"name": "ToegewezenProduct_OmvangVolume",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ToegewezenProduct_OmvangEenheid",
+				"type": "char"
+			},
+			{
+				"name": "ToegewezenProduct_OmvangFrequentie",
+				"type": "char"
+			},
+			{
+				"name": "JW301_ToegewezenProduct_ID",
+				"type": "bigint",
+				"precision": 19
+			}
+		],
+		"typeProperties": {
+			"schema": "temp",
+			"table": "JW301_ToegewezenProduct"
+		}
+	}
+}

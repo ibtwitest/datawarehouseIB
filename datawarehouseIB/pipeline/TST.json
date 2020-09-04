@@ -31,7 +31,7 @@
 							"fileExtension": ".csv"
 						}
 					},
-					"enableStaging": true,
+					"enableStaging": false,
 					"validateDataConsistency": true,
 					"translator": {
 						"type": "TabularTranslator",

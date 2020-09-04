@@ -1,0 +1,71 @@
+{
+	"name": "SourceDataset_4yo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "ggkwbe"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "1",
+				"type": "String"
+			},
+			{
+				"name": "WBE21-TST-ALM",
+				"type": "String"
+			},
+			{
+				"name": "2020-07-17 06:30:14.2313943 +02:00",
+				"type": "String"
+			},
+			{
+				"name": "0",
+				"type": "String"
+			},
+			{
+				"name": "sp_Blitz May  6 2020 12:00AM",
+				"type": "String"
+			},
+			{
+				"name": "SQL Server First Responder Kit",
+				"type": "String"
+			},
+			{
+				"name": "Prop_6",
+				"type": "String"
+			},
+			{
+				"name": "http://FirstResponderKit.org/",
+				"type": "String"
+			},
+			{
+				"name": "To get help or add your own contributions, join us at http://FirstResponderKit.org.",
+				"type": "String"
+			},
+			{
+				"name": "Prop_9",
+				"type": "String"
+			},
+			{
+				"name": "Prop_10",
+				"type": "String"
+			},
+			{
+				"name": "-1",
+				"type": "String"
+			}
+		]
+	}
+}

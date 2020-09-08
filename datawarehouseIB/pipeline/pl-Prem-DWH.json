@@ -41,7 +41,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureBlobDatase",
+						"referenceName": "DelimitedText1",
 						"type": "DatasetReference"
 					}
 				],

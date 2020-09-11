@@ -1,0 +1,10 @@
+{
+	"name": "pe_blob",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8bf5716e-cbb9-4bef-86f6-42ed7d1a872a/resourceGroups/TriDatawarehouseIB/providers/Microsoft.Storage/storageAccounts/tridataronald",
+		"groupId": "blob",
+		"fqdns": [
+			"tridataronald.blob.core.windows.net"
+		]
+	}
+}

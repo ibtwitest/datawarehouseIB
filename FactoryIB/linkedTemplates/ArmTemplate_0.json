@@ -234,7 +234,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "*.*",
+						"fileName": "1bee1339-076c-4ba3-b830-04f3a7e91e7a.txt",
 						"folderPath": "fromonprem",
 						"container": "adftutorial"
 					},

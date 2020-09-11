@@ -83,7 +83,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "new"
+					"table": "Names"
 				}
 			},
 			"dependsOn": []

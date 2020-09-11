@@ -1,0 +1,1096 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "FactoryIB"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/TST')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "JW301",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "JW301_Beperking",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "JW301",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301_Beperking",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "JW301_BeperkingScore",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "JW301_Beperking",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301_BeperkingScore",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "JW301_ClientContact",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "JW301_BeperkingScore",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301_ClientContact",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "JW301_ClientRelatie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "JW301_ClientContact",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301_ClientRelatie",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "JW301_ToegewezenProduct",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "JW301_ClientRelatie",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_JW301_ToegewezenProduct",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ToCSV",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_JW301')]",
+				"[concat(variables('factoryId'), '/datasets/ds_JW301_Beperking')]",
+				"[concat(variables('factoryId'), '/datasets/ds_JW301_BeperkingScore')]",
+				"[concat(variables('factoryId'), '/datasets/ds_JW301_ClientContact')]",
+				"[concat(variables('factoryId'), '/datasets/ds_JW301_ClientRelatie')]",
+				"[concat(variables('factoryId'), '/datasets/ds_JW301_ToegewezenProduct')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl-Prem-DWH')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "new"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.*",
+						"folderPath": "fromonprem",
+						"container": "adftutorial"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Header_Functie",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Header_Referentienummer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Header_Crossreferentienummer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Datum_VerzondenUTC",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "Datum_OntvangenUTC",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "IsWebservice",
+						"type": "bit"
+					},
+					{
+						"name": "BerichtCode",
+						"type": "varchar"
+					},
+					{
+						"name": "BerichtVersie",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "BerichtSubversie",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "Afzender",
+						"type": "varchar"
+					},
+					{
+						"name": "Ontvanger",
+						"type": "varchar"
+					},
+					{
+						"name": "Identificatie",
+						"type": "varchar"
+					},
+					{
+						"name": "Dagtekening",
+						"type": "date"
+					},
+					{
+						"name": "Client_Bsn",
+						"type": "varchar"
+					},
+					{
+						"name": "Beschikking_BeschikkingNummer",
+						"type": "varchar"
+					},
+					{
+						"name": "Beschikking_Grondslag01",
+						"type": "char"
+					},
+					{
+						"name": "Beschikking_Grondslag02",
+						"type": "char"
+					},
+					{
+						"name": "Beschikking_Afgiftedatum",
+						"type": "date"
+					},
+					{
+						"name": "Beschikking_Ingangsdatum",
+						"type": "date"
+					},
+					{
+						"name": "Beschikking_Einddatum",
+						"type": "date"
+					},
+					{
+						"name": "Client_Bsn_Hashed",
+						"type": "varbinary"
+					},
+					{
+						"name": "Client_Geboortedatum",
+						"type": "date"
+					},
+					{
+						"name": "Client_DatumGebruik",
+						"type": "char"
+					},
+					{
+						"name": "Client_Geslacht",
+						"type": "char"
+					},
+					{
+						"name": "Client_Geslachtsnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_GeslachtsnaamVoorvoegsel",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Partnernaam",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_PartnernaamVoorvoegsel",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Voornamen",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_Voorletters",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_NaamGebruik",
+						"type": "char"
+					},
+					{
+						"name": "Client_CommunicatieVorm",
+						"type": "char"
+					},
+					{
+						"name": "Client_CommunicatieTaal",
+						"type": "varchar"
+					},
+					{
+						"name": "Client_JuridischeStatus",
+						"type": "char"
+					},
+					{
+						"name": "Client_WettelijkeVertegenwoordiging",
+						"type": "char"
+					},
+					{
+						"name": "Client_CommentaarInd",
+						"type": "char"
+					},
+					{
+						"name": "Beschikking_CommentaarInd",
+						"type": "char"
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301_Beperking')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "BeschikkingNummer",
+						"type": "varchar"
+					},
+					{
+						"name": "Beperking_Categorie",
+						"type": "char"
+					},
+					{
+						"name": "Beperking_Duur",
+						"type": "char"
+					},
+					{
+						"name": "Beperking_CommentaarInd",
+						"type": "char"
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301_Beperking"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301_BeperkingScore')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "BeschikkingNummer",
+						"type": "varchar"
+					},
+					{
+						"name": "Beperking_Categorie",
+						"type": "char"
+					},
+					{
+						"name": "Beperking_Vraag",
+						"type": "varchar"
+					},
+					{
+						"name": "Beperking_Score",
+						"type": "varchar"
+					},
+					{
+						"name": "BeperkingScore_CommentaarInd",
+						"type": "char"
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301_BeperkingScore"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301_ClientContact')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "AdresSoort",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisnummer",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisletter",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisnummerToevoeging",
+						"type": "varchar"
+					},
+					{
+						"name": "AdresAanduidingWoonadres",
+						"type": "char"
+					},
+					{
+						"name": "Postcode",
+						"type": "varchar"
+					},
+					{
+						"name": "Straatnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "Plaatsnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "LandCode",
+						"type": "char"
+					},
+					{
+						"name": "Organisatie",
+						"type": "varchar"
+					},
+					{
+						"name": "Telefoonnummer01",
+						"type": "varchar"
+					},
+					{
+						"name": "TelefoonLandnummer01",
+						"type": "varchar"
+					},
+					{
+						"name": "Telefoonnummer02",
+						"type": "varchar"
+					},
+					{
+						"name": "TelefoonLandnummer02",
+						"type": "varchar"
+					},
+					{
+						"name": "Emailadres",
+						"type": "varchar"
+					},
+					{
+						"name": "ContactBegindatum",
+						"type": "date"
+					},
+					{
+						"name": "ContactEinddatum",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301_ClientContact"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301_ClientRelatie')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "RelatieNummer",
+						"type": "varchar"
+					},
+					{
+						"name": "RelatieVolgorde",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "RelatieSoort",
+						"type": "char"
+					},
+					{
+						"name": "Geboortdatum",
+						"type": "date"
+					},
+					{
+						"name": "GeboortDatumGebruik",
+						"type": "char"
+					},
+					{
+						"name": "Geslacht",
+						"type": "char"
+					},
+					{
+						"name": "Geslachtsnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "GeslachtsnaamVoorvoegsel",
+						"type": "varchar"
+					},
+					{
+						"name": "Partnernaam",
+						"type": "varchar"
+					},
+					{
+						"name": "PartnernaamVoorvoegsel",
+						"type": "varchar"
+					},
+					{
+						"name": "Voornamen",
+						"type": "varchar"
+					},
+					{
+						"name": "Voorletters",
+						"type": "varchar"
+					},
+					{
+						"name": "NaamGebruik",
+						"type": "char"
+					},
+					{
+						"name": "AdresSoort",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisnummer",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisletter",
+						"type": "char"
+					},
+					{
+						"name": "AdresHuisnummerToevoeging",
+						"type": "varchar"
+					},
+					{
+						"name": "AdresAanduidingWoonadres",
+						"type": "char"
+					},
+					{
+						"name": "Postcode",
+						"type": "varchar"
+					},
+					{
+						"name": "Straatnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "Plaatsnaam",
+						"type": "varchar"
+					},
+					{
+						"name": "LandCode",
+						"type": "char"
+					},
+					{
+						"name": "Organisatie",
+						"type": "varchar"
+					},
+					{
+						"name": "Telefoonnummer01",
+						"type": "varchar"
+					},
+					{
+						"name": "TelefoonLandnummer01",
+						"type": "varchar"
+					},
+					{
+						"name": "Telefoonnummer02",
+						"type": "varchar"
+					},
+					{
+						"name": "TelefoonLandnummer02",
+						"type": "varchar"
+					},
+					{
+						"name": "Emailadres",
+						"type": "varchar"
+					},
+					{
+						"name": "RelatieBegindatum",
+						"type": "date"
+					},
+					{
+						"name": "RelatieEinddatum",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301_ClientRelatie"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_JW301_ToegewezenProduct')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServer1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "JW"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Bericht_ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "ToegewezenProduct_ToewijzingNummer",
+						"type": "varchar"
+					},
+					{
+						"name": "ToegewezenProduct_ReferentieAanbieder",
+						"type": "varchar"
+					},
+					{
+						"name": "ToegewezenProduct_ProductCategorie",
+						"type": "char"
+					},
+					{
+						"name": "ToegewezenProduct_ProductCode",
+						"type": "char"
+					},
+					{
+						"name": "ToegewezenProduct_Toewijzingsdatum",
+						"type": "date"
+					},
+					{
+						"name": "ToegewezenProduct_Toewijzingstijd",
+						"type": "time",
+						"scale": 7
+					},
+					{
+						"name": "ToegewezenProduct_Ingangsdatum",
+						"type": "date"
+					},
+					{
+						"name": "ToegewezenProduct_Einddatum",
+						"type": "date"
+					},
+					{
+						"name": "ToegewezenProduct_RedenWijziging",
+						"type": "char"
+					},
+					{
+						"name": "ToegewezenProduct_OmvangVolume",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ToegewezenProduct_OmvangEenheid",
+						"type": "char"
+					},
+					{
+						"name": "ToegewezenProduct_OmvangFrequentie",
+						"type": "char"
+					},
+					{
+						"name": "JW301_ToegewezenProduct_ID",
+						"type": "bigint",
+						"precision": 19
+					}
+				],
+				"typeProperties": {
+					"schema": "temp",
+					"table": "JW301_ToegewezenProduct"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

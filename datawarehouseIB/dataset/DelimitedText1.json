@@ -9,7 +9,10 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"fileName": "1bee1339-076c-4ba3-b830-04f3a7e91e7a.txt",
+				"folderPath": "fromonprem",
+				"container": "adftutorial"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

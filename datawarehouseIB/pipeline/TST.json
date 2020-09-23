@@ -44,7 +44,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SqlServerTable2",
+						"referenceName": "ds_JW301",
 						"type": "DatasetReference"
 					}
 				],
@@ -104,7 +104,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "JW301_Beperking",
+						"referenceName": "ds_JW301_Beperking",
 						"type": "DatasetReference"
 					}
 				],
